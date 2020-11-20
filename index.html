@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -196,6 +196,380 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/20/The-least-square-solution-of-contradiction-equations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Pumpkin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="民科的自我修养">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/20/The-least-square-solution-of-contradiction-equations/" class="post-title-link" itemprop="url">关于矛盾方程组的最小二乘解</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-11-20 23:49:59 / Modified: 23:51:11" itemprop="dateCreated datePublished" datetime="2020-11-20T23:49:59+08:00">2020-11-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>一般情况下，实数域上的线性方程组 <span class="math display">\[
+\left\{
+\begin{align}
+&amp;a_{11}x_1+a_{12}x_2+\cdots+a_{1s}x_s=b_1\\
+&amp;a_{21}x_1+a_{22}x_2+\cdots+a_{2s}x_s=b_2\\
+&amp;\cdots\\
+&amp;a_{n1}x_1+a_{n2}x_2+\cdots+a_{ns}x_s=b_n
+\end{align}
+\right.
+\]</span> 很有可能无解，这时候这就是一个<strong>矛盾方程组</strong>，我们找不到一组<span class="math inline">\(x_1,x_2,\cdots,x_s\)</span>使得 <span class="math display">\[
+d\triangleq\sum_{i=1}^n(a_{i1}x_1+\cdots+a_{is}x_s-b_i)^2=0
+\]</span> 但是我们可以试着找一组<span class="math inline">\(x_1&#39;,x_2&#39;,\cdots,x_s&#39;\)</span>使得<span class="math inline">\(d\)</span>尽可能小（最小），这时候<span class="math inline">\(x_1&#39;,x_2&#39;,\cdots,x_s&#39;\)</span>就使该方程组的<strong>最小二乘解</strong>.</p>
+令 $$ =(
+<span class="math display">\[\begin{aligned}
+&amp;a_{11}\quad\cdots\quad a_{1s}\\
+&amp;\vdots\\
+&amp;a_{n1}\quad\cdots\quad a_{ns}\\
+\end{aligned}\]</span>
+<p>),</p>
+=(
+<span class="math display">\[\begin{aligned}
+&amp;b_1\\
+&amp;\vdots\\
+&amp;b_n\\
+\end{aligned}\]</span>
+<p>),</p>
+=(
+<span class="math display">\[\begin{aligned}
+&amp;x_1\\
+&amp;\vdots\\
+&amp;x_s\\
+\end{aligned}\]</span>
+<p>),</p>
+=(
+<span class="math display">\[\begin{aligned}
+&amp;\sum_{i=1}^s a_{1i}x_i \\
+&amp;\vdots\\
+&amp;\sum_{i=1}^s a_{ni}x_i \\
+\end{aligned}\]</span>
+<p>) $$ 这样<span class="math inline">\(d=|Y-b|^2\)</span>就是欧式空间<span class="math inline">\(V=\mathbb{R}^n\)</span>中向量<span class="math inline">\(Y\)</span>和<span class="math inline">\(b\)</span>的距离的平方，现在要做的就是找<span class="math inline">\(X=X^0\)</span>，使得<span class="math inline">\(Y\)</span>与<span class="math inline">\(b\)</span>的距离最短，此时可记原方程组为<span class="math inline">\(AX=b\)</span>.</p>
+<p>令<span class="math inline">\(A=(\alpha_1,\cdots,\alpha_s)\)</span>，其中<span class="math inline">\(\alpha_1,\cdots,\alpha_s\)</span>是列向量，则 <span class="math display">\[
+Y=AX=x_1\alpha_1+\cdots+x_s\alpha_s\in L(\alpha_1,\cdots,\alpha_s)\triangleq W
+\]</span> 设<span class="math inline">\(Y^0\in W\)</span>是<span class="math inline">\(b\)</span>在<span class="math inline">\(W\)</span>上的投影，则当<span class="math inline">\(Y=Y^0\)</span>时<span class="math inline">\(Y\)</span>与<span class="math inline">\(b\)</span>的距离最短，也就是使得<span class="math inline">\(Y^0=AX^0\)</span>成立的<span class="math inline">\(X^0\)</span>就是我们要找的方程组的最小二乘解.</p>
+<p>我们知道<span class="math inline">\(Y^0\)</span>是一定存在的，又由<span class="math inline">\(Y^0\in W\)</span>可以知道<span class="math inline">\(X^0\)</span>也是一定存在的，要注意的是，虽然<span class="math inline">\(Y^0\)</span>是唯一的，但<span class="math inline">\(X^0\)</span>却未必是唯一的. <span class="math display">\[
+\begin{aligned}
+&amp;(b-Y^0)\perp W\\
+\Longleftrightarrow\ &amp; (b-Y^0)\perp \alpha_i(i=1,\cdots,s)\\
+\Longleftrightarrow\ &amp; \alpha_i^T(b-Y^0)=0\\
+\Longleftrightarrow\ &amp; A^T(b-Y^0)=0\\
+\Longleftrightarrow\ &amp; A^TY^0=A^Tb\\
+\Longleftrightarrow\ &amp; A^TAX^0=A^Tb\\
+\end{aligned}
+\]</span> 由此，如果<span class="math inline">\(X^0\)</span>是<span class="math inline">\(AX=b\)</span>的一个最小二乘解，<span class="math inline">\(X^0\)</span>应该是<span class="math inline">\(A^TAX=A^Tb\)</span>的一个解.</p>
+<p>称方程组 <span class="math display">\[
+A^TAX=A^Tb
+\]</span> 是由<span class="math inline">\(AX=b\)</span>导出的<strong>正规方程组</strong>.</p>
+<p>可以用线性方程组的求解理论证明正规方程组<span class="math inline">\(A^TAX=A^Tb\)</span>总是有解的，即<span class="math inline">\(AX=b\)</span>的最小二乘解总是存在的.</p>
+<p>令<span class="math inline">\(L(A^T)\)</span>和<span class="math inline">\(L(A^TA)\)</span>分别表示<span class="math inline">\(A^T\)</span>和<span class="math inline">\(A^TA\)</span>的列空间，那么总有 <span class="math display">\[
+L(A^TA)\subseteq L(A^T)
+\]</span> 对于一个实矩阵<span class="math inline">\(A\)</span>，总有<span class="math inline">\(r(A^TA)=r(A)\)</span>，于是 <span class="math display">\[
+\dim L(A^TA)=r(A^TA)=r(A)=r(A^T)=\dim L(A^T)
+\]</span> 所以 <span class="math display">\[
+L(A^TA)=L(A^T)
+\]</span> 于是 <span class="math display">\[
+A^Tb\in L(A^T)=L(A^TA)
+\]</span> 也就是存在<span class="math inline">\(X^0\)</span>使得<span class="math inline">\(A^TAX^0=A^Tb\)</span>.</p>
+<p>当<span class="math inline">\(A\)</span>是可逆方阵得时候，线性方程组<span class="math inline">\(AX=b\)</span>总有唯一的解<span class="math inline">\(X=A^{-1}b\)</span>，当<span class="math inline">\(A\)</span>为非可逆阵的时候，<span class="math inline">\(AX=b\)</span>有解的充要条件为<span class="math inline">\(r(A\ b)=r(A)\)</span>，这时候，是否也有某个矩阵使得解可以表示为<span class="math inline">\(X=Gb\)</span>的形式呢？</p>
+<p><strong>定义</strong> 对于数域<span class="math inline">\(\mathbb{P}\)</span>上的<span class="math inline">\(m\times n\)</span>阶矩阵<span class="math inline">\(A\)</span>，若有<span class="math inline">\(n\times m\)</span>阶矩阵<span class="math inline">\(G\)</span>，使得 <span class="math display">\[
+AGA=A
+\]</span> 则称<span class="math inline">\(G\)</span>是<span class="math inline">\(A\)</span>的一个<strong>广义逆矩阵</strong>，简称<strong>广义逆</strong>.</p>
+如果<span class="math inline">\(A\)</span>的秩为<span class="math inline">\(r\)</span>，令 <span class="math display">\[
+A=P\left(
+\begin{aligned}
+E_r\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}
+\right)Q
+\]</span> 其中<span class="math inline">\(P,Q\)</span>分别为<span class="math inline">\(m\times m,n\times n\)</span>阶的可逆阵，则<span class="math inline">\(A\)</span>的所有广义逆为 <span class="math display">\[
+G=Q^{-1}\left(
+\begin{aligned}
+E_r\quad &amp;C\\
+D\quad &amp;F
+\end{aligned}
+\right)P^{-1}
+\]</span> 其中<span class="math inline">\(C,D,F\)</span>分别为任意的<span class="math inline">\(r\times(n-r),(m-r)\times r,(m-r)\times(n-r)\)</span>阶矩阵. $$
+<span class="math display">\[\begin{aligned}
+AGA&amp;=P\left(
+\begin{aligned}
+E_r\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}
+\right)Q
+Q^{-1}\left(
+\begin{aligned}
+E_r\quad &amp;C\\
+D\quad &amp;F
+\end{aligned}
+\right)P^{-1}
+P\left(
+\begin{aligned}
+E_r\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}
+\right)Q\\
+
+&amp;=P\left(
+\begin{aligned}
+E_r\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}
+\right)
+\left(
+\begin{aligned}
+E_r\quad &amp;C\\
+D\quad &amp;F
+\end{aligned}
+\right)
+\left(
+\begin{aligned}
+E_r\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}
+\right)Q\\
+
+&amp;=P\left(
+\begin{aligned}
+E_r\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}
+\right)Q\\
+
+&amp;=A
+\end{aligned}\]</span>
+<p>$$ 所以所有这样形式的<span class="math inline">\(G\)</span>都是<span class="math inline">\(A\)</span>的广义逆.</p>
+设<span class="math inline">\(G\)</span>是<span class="math inline">\(A\)</span>的一个广义逆，而且 <span class="math display">\[
+QGP=\left(
+\begin{aligned}
+B\quad C\\
+D\quad F
+\end{aligned}
+\right)
+\]</span> 其中<span class="math inline">\(B\)</span>是<span class="math inline">\(r\times r\)</span>阶方阵，<span class="math inline">\(F\)</span>是<span class="math inline">\((m-r)\times (n-r)\)</span>阶矩阵，于是 $$
+<span class="math display">\[\begin{aligned}
+AGA&amp;=P\left(
+\begin{aligned}
+E_r\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}
+\right)Q
+Q^{-1}\left(
+\begin{aligned}
+B\quad &amp;C\\
+D\quad &amp;F
+\end{aligned}
+\right)P^{-1}
+P\left(
+\begin{aligned}
+E_r\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}
+\right)Q\\
+
+&amp;=P\left(
+\begin{aligned}
+B\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}
+\right)Q
+\end{aligned}\]</span>
+<span class="math display">\[
+由
+\]</span> A=P(
+<span class="math display">\[\begin{aligned}
+E_r\quad &amp;O\\
+O\quad &amp;O
+\end{aligned}\]</span>
+)Q, AGA=A <span class="math display">\[
+可以知道$B=E_r$，进而有
+\]</span> G=Q^{-1}(
+<span class="math display">\[\begin{aligned}
+E_r\quad &amp;C\\
+D\quad &amp;F
+\end{aligned}\]</span>
+<p>)P^{-1} $$ 也就是，<span class="math inline">\(A\)</span>的所有广义逆都有这样的形式.</p>
+<p>现在用广义逆给出方程组有解的充要条件和通解公式.</p>
+<p><strong>引理</strong> 设<span class="math inline">\(A\)</span>为<span class="math inline">\(m\times n\)</span>阶矩阵，<span class="math inline">\(G\)</span>为<span class="math inline">\(n\times m\)</span>阶矩阵，则<span class="math inline">\(AGA=A\)</span>当且仅当对于任一列向量<span class="math inline">\(X_0\)</span>以及<span class="math inline">\(b=AX_0\)</span>，有<span class="math inline">\(AGb=b\)</span>.</p>
+<p><strong>证</strong> 如果有<span class="math inline">\(AGA=A\)</span>，很显然有<span class="math inline">\(AGAX_0=AX_0\)</span>，也就是<span class="math inline">\(AGb=b\)</span>.</p>
+<p>反过来，如果有<span class="math inline">\(AGb=b\)</span>，就有<span class="math inline">\((AGA-A)X_0=O\)</span>，特别地，令 <span class="math display">\[
+X_0=\alpha_i=\left(
+\begin{aligned}
+0\\ \vdots\\ 1\\ \vdots\\ 0
+\end{aligned}
+\right)(i=1,\cdots,n)
+\]</span> 那么就有 <span class="math display">\[
+AGA-A=(AGA-A)E=\sum_{i=1}^n(AGA-A)\alpha_i=O
+\]</span> （这里其实并不是求和，只是将<span class="math inline">\(\{\alpha_i\}\)</span>按顺序并置构成了单位矩阵<span class="math inline">\(E\)</span>，同时<span class="math inline">\(n\)</span>个<span class="math inline">\(O_{n\times1}\)</span>也并置成了<span class="math inline">\(O_{n\times n}。\)</span>）</p>
+<p><strong>引理</strong> 如果<span class="math inline">\(G\)</span>是<span class="math inline">\(A\)</span>的广义逆，那么线性方程组有解当且仅当<span class="math inline">\(AGb=b\)</span>.</p>
+<p><strong>证</strong> 当<span class="math inline">\(AGb=b\)</span>时，<span class="math inline">\(X=Gb\)</span>就是<span class="math inline">\(AX=b\)</span>的解.</p>
+<p>反之，如果<span class="math inline">\(X=X_0\)</span>是<span class="math inline">\(AX=b\)</span>的解，因为<span class="math inline">\(G\)</span>是<span class="math inline">\(A\)</span>的广义逆，有<span class="math inline">\(AGb=b\)</span>.</p>
+<p><strong>定理</strong> 设<span class="math inline">\(G\)</span>是<span class="math inline">\(m\times n\)</span>阶矩阵<span class="math inline">\(A\)</span>的一个广义逆，则当<span class="math inline">\(AX=b\)</span>有解时，通解可以表示为 <span class="math display">\[
+X=Gb+(E_n-GA)Y
+\]</span> 其中<span class="math inline">\(Y\)</span>是任意一个<span class="math inline">\(n\)</span>维列向量.</p>
+<p><strong>证</strong> 既然<span class="math inline">\(AX=b\)</span>有解，就有<span class="math inline">\(AGb=b\)</span>，于是 <span class="math display">\[
+A(Gb+(E_n-GA)Y)=AGb+(A-AGA)Y=b
+\]</span> 也就是<span class="math inline">\(X=Gb+(E_n-GA)Y\)</span>是<span class="math inline">\(AX=b\)</span>的解.</p>
+<p>另一方面，如果<span class="math inline">\(X=X&#39;\)</span>是<span class="math inline">\(AX=b\)</span>的解，有 <span class="math display">\[
+X&#39;=Gb+X&#39;-Gb=Gb+X&#39;-GAX&#39;=Gb+(E_n-GA)X&#39;
+\]</span> 特别地，当<span class="math inline">\(b=O\)</span>的时候，有</p>
+<p><strong>推论</strong> 如果<span class="math inline">\(G\)</span>是<span class="math inline">\(A\)</span>的广义逆，那么<span class="math inline">\(AX=O\)</span>的通解可以表示为 <span class="math display">\[
+X=(E_n-GA)Y
+\]</span> 其中<span class="math inline">\(Y\)</span>是任意<span class="math inline">\(n\)</span>维列向量.</p>
+<p>我们已经知道，当<span class="math inline">\(AX=b\)</span>为矛盾方程组的时候，<span class="math inline">\(AX=b\)</span>的最小二乘解为<span class="math inline">\(A^TAX=A^Tb\)</span>的解，这时候，利用​广义逆，最小二乘解可以表示为 <span class="math display">\[
+X=GA^Tb+(E_n-GA^TA)Y
+\]</span> 其中<span class="math inline">\(G\)</span>是<span class="math inline">\(A^TA\)</span>的广义逆，<span class="math inline">\(Y\)</span>是任意向量.</p>
+<p><strong>一种特殊的广义逆</strong></p>
+<p>设<span class="math inline">\(A\)</span>是复数域<span class="math inline">\(\mathbb{C}\)</span>上的<span class="math inline">\(m\times n\)</span>阶矩阵，如果有<span class="math inline">\(\mathbb{C}\)</span>上的<span class="math inline">\(n\times m\)</span>阶矩阵满足</p>
+<ol type="1">
+<li><p><span class="math inline">\(AGA=A\)</span></p></li>
+<li><p><span class="math inline">\(GAG=G\)</span></p></li>
+<li><p><span class="math inline">\((AG)^H=AG\)</span></p></li>
+<li><p><span class="math inline">\((GA)^H=GA\)</span></p></li>
+</ol>
+<p>则称<span class="math inline">\(G\)</span>为<span class="math inline">\(A\)</span>的Moore-Penrose逆，简称M-P逆.</p>
+<p>很明显<span class="math inline">\(G\)</span>是<span class="math inline">\(A\)</span>的广义逆，也就是说，M-P逆是比广义逆强的概念，而且M-P还具有对称性，如果<span class="math inline">\(G\)</span>是<span class="math inline">\(A\)</span>的广义逆，那么<span class="math inline">\(A\)</span>也是<span class="math inline">\(G\)</span>的广义逆.</p>
+<p>设<span class="math inline">\(A\in \mathbb{C}_{m\times n}\)</span>的秩为<span class="math inline">\(r\)</span>，取<span class="math inline">\(\beta_1,\beta_2,\cdots,\beta_r\)</span>为<span class="math inline">\(A\)</span>的列极大线性无关组，则 <span class="math display">\[
+A=(\alpha_1,\alpha_2,\cdots,\alpha_n)
+\]</span> 的任一列可以表示为<span class="math inline">\(\beta_1,\beta_2,\cdots,\beta_r\)</span>的线性组合，即 <span class="math display">\[
+\alpha_i=\sum_{j=1}^{r}c_{ji}\beta_j\quad(c_{ij}\in\mathbb{C,i=1,\cdots,n})
+\]</span> 于是有 <span class="math display">\[
+A=(\alpha_1,\alpha_2,\cdots,\alpha_n)=(\beta_1,\beta_2,\cdots,\beta_r)
+\left(
+\begin{aligned}
+&amp;c_{11}\ \cdots \ c_{1n}\\
+&amp;\vdots\  \\
+&amp;c_{r1}\ \cdots \ c_{rn}
+\end{aligned}
+\right)
+=BC
+\]</span> 其中 <span class="math display">\[
+B=(\beta_1,\beta_2,\cdots,\beta_r),\ C=\left(
+\begin{aligned}
+&amp;c_{11}\ \cdots \ c_{1n}\\
+&amp;\vdots\  \\
+&amp;c_{r1}\ \cdots \ c_{rn}
+\end{aligned}
+\right)
+\]</span> 由定义<span class="math inline">\(r(B)=r\)</span>，又因为 <span class="math display">\[
+r=r(A)=r(BC)\le r(C)\le\min\{r,n\}\le r
+\]</span> 有<span class="math inline">\(r(C)=r\)</span>，于是，分解式 <span class="math display">\[
+A=BC
+\]</span> 中，<span class="math inline">\(B\)</span>和<span class="math inline">\(C\)</span>分别是列满秩矩阵，和行满秩矩阵，这样的分解被称为<strong>满秩分解</strong>.</p>
+<p>比较容易地，可以得到 <span class="math display">\[
+r(B^HB)=r(C^HC)=r
+\]</span> 因此<span class="math inline">\(B^HB,C^HC\)</span>都是<span class="math inline">\(r\)</span>阶可逆方阵，令 <span class="math display">\[
+G=C^H(CC^H)^{-1}(B^HB)^{-1}B^H
+\]</span> 可以验证 <span class="math display">\[
+\begin{aligned}
+AGA&amp;=BCC^H(CC^H)^{-1}(B^HB)^{-1}B^HBC=BC=A\\
+GAG&amp;=C^H(CC^H)^{-1}(B^HB)^{-1}B^HBCC^H(CC^H)^{-1}(B^HB)^{-1}B^H\\
+&amp;=C^H(CC^H)^{-1}(B^HB)^{-1}B^H=G\\
+GA&amp;=C^H(CC^H)^{-1}(B^HB)^{-1}B^HBC=C^H(CC^H)^{-1}C=(GA)^H\\
+(AG)^H&amp;=G^HA^H=B(B^HB)^{-1}(CC^H)^{-1}CC^HB^H\\
+&amp;=B^H(BB^H)^{-1}B=AG\\
+AG&amp;=BCC^H(CC^H)^{-1}(B^HB)^{-1}B^H=B^H(BB^H)^{-1}B=(AG)^H
+\end{aligned}
+\]</span> 因此，<span class="math inline">\(G\)</span>是<span class="math inline">\(A\)</span>的M-P逆.</p>
+<p>设<span class="math inline">\(X\)</span>是<span class="math inline">\(A\)</span>的另一个M-P逆，则有 <span class="math display">\[
+\begin{aligned}
+X&amp;=XAX=X(AX)^H=XX^HA^H=XX^H(AGA)^H\\
+&amp;=XX^HA^H(AG)^H=X(AX)^H(AG)^H=XAXAG\\
+&amp;=XAG=X(AGA)G=XAGAG=(XA)^H(GA)^HG\\
+&amp;=(GAXA)^HG=(GA)^HG=GAG\\
+&amp;=G
+\end{aligned}
+\]</span> 所以，<span class="math inline">\(A\)</span>的M-P逆是唯一的,</p>
+<p><strong>定理</strong> 设<span class="math inline">\(A\in\mathbb{C}_{m\times n}\)</span>，<span class="math inline">\(r(A)=r\)</span>，<span class="math inline">\(A=BC\)</span>是<span class="math inline">\(A\)</span>的满秩分解，则<span class="math inline">\(A\)</span>有唯一的M-P逆 <span class="math display">\[
+A^+=C^H(CC^H)^{-1}(B^HB)^{-1}B^H
+\]</span> 注意，当<span class="math inline">\(A\in \mathbb{R}_{m\times n}\)</span>时，<span class="math inline">\(A^+\)</span>存在且存在于<span class="math inline">\(\mathbb{R}_{n\times m}\)</span>中，而且，与可逆阵运算不同的是，一般<span class="math inline">\((AB)^+\ne B^+A^+\)</span>.</p>
+<p>现在来讨论如何用M-P逆给出矛盾方程组的最小二乘解的公式刻画.</p>
+<p>现在只在实数域上讨论矛盾方程组的最小二乘解问题，所以有<span class="math inline">\(A^H=A^T\)</span>.</p>
+<p><strong>定理</strong> 设<span class="math inline">\(A\in \mathbb{R}_{m\times n}\)</span>，则有</p>
+<p>（i）<span class="math inline">\(AX=b\)</span>的最小二乘解的通式可以表示为 <span class="math display">\[
+X=A^+b+(E_n-A^+A)Y
+\]</span> 其中<span class="math inline">\(Y\)</span>是任一<span class="math inline">\(n\)</span>维实向量.</p>
+<p>（ii）<span class="math inline">\(A^+b\)</span>是唯一的极小最小二乘解，即作为向量长度在最小二乘解中是最小的.</p>
+<p><strong>证</strong> （i）<span class="math inline">\(X=X_0\)</span>是<span class="math inline">\(AX=b\)</span>的最小二乘解当且仅当<span class="math inline">\(X_0\)</span>是正规方程组<span class="math inline">\(A^TAX=A^b\)</span>的解，于是有 <span class="math display">\[
+X_0=(A^TA)^+A^Tb+(E_n-(A^TA)^+(A^TA))Y=A^+b+(E_n-A^+A)Y
+\]</span> 其中利用了<span class="math inline">\(A^+=(A^TA)^+A^T\)</span>，<span class="math inline">\(Y\)</span>是任一<span class="math inline">\(n\)</span>维实向量.</p>
+<p>（ii）当<span class="math inline">\(Y=O\)</span>时，由（i）即得<span class="math inline">\(X_0=A^+b\)</span>是<span class="math inline">\(AX=b\)</span>的一个最小二乘解，与任一最小二乘解比较 <span class="math display">\[
+X-X_0=(E_n-A^+A)Y
+\]</span> 于是有 <span class="math display">\[
+\begin{aligned}
+(X-X_0,X_0)&amp;=X_0^T(X-X_0)=(A^+b)^T(E_n-A^+A)Y\\
+&amp;=b^T(A^+)^TY-b^T(A^+)^TA^+AY\\
+&amp;=b^T(A^+)^TY-b^T(A^+AA^+)^TY\\
+&amp;=b^T(A^+)^TY-b^T(A^+)^TY=0
+\end{aligned}
+\]</span> 即<span class="math inline">\(X_0\perp (X-X_0)\)</span>，由勾股定理，有 <span class="math display">\[
+|X|^2=|X_0+(X-X_0)|^2=|X_0|^2+|X-X_0|^2\ge |X_0|^2
+\]</span> 从而<span class="math inline">\(X_0\)</span>是最小二乘解中长度最小的.</p>
+<p>假设<span class="math inline">\(X_0&#39;\)</span>是另一个极小最小二乘解，由极小性的定义，<span class="math inline">\(|X_0|=|X_0&#39;|\)</span>，又由（i），存在向量<span class="math inline">\(Y_0\)</span>使得 <span class="math display">\[
+X_0&#39;=X_0+(E_n-A^+A)Y_0
+\]</span> 并且<span class="math inline">\(X_0\perp(E_n-A^+A)Y_0\)</span>，由此得<span class="math inline">\(X_0=X_0&#39;\)</span>，也就是说，极小的最小二乘解是唯一的.</p>
+<p>需要注意的是，广义逆是对任一数域讨论的，而M-P逆是针对复数域的，最小二乘解理论则只针对实数域建立.</p>
+<p>事实上，最小二乘解理论可以在复数域上对矛盾方程组进行类似的研究，并得到类似的结论.</p>
+<p>由最小二乘解的定义，对<span class="math inline">\(AX=b\)</span>的任一最小二乘解<span class="math inline">\(X_1\)</span>，<span class="math inline">\(AX_1\)</span>是不变的，而且 <span class="math display">\[
+|AX_1-b|=\min\{|AX-b|:X\in\mathbb{R}_n\}
+\]</span> 这个值越小，说明<span class="math inline">\(X_1\)</span>越接近<span class="math inline">\(AX=b\)</span>的一般解，即体现了最小二乘解的“误差”，称<span class="math inline">\(AX_1-b\)</span>为方程组<span class="math inline">\(AX=b\)</span>的<strong>残差向量</strong>，<span class="math inline">\(|AX_1-b|\)</span>为残差.</p>
+<p>当<span class="math inline">\(X_1\)</span>是<span class="math inline">\(AX=b\)</span> 的解时，残差向量和残差退化为零向量和代数零.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
