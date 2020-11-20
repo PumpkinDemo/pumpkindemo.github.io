@@ -2633,7 +2633,7 @@ mjx-container[display="true"] + br {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #1d83f0;
+  background: #8fffb9;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
