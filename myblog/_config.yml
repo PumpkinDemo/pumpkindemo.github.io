@@ -5,7 +5,7 @@
 # Site
 title: 民科的自我修养
 subtitle: ''
-description: ''
+description: In building...
 keywords:
 author: Pumpkin
 language: en
@@ -110,3 +110,23 @@ deploy:
   type: git
   repository: git@github.com:PumpkinDemo/pumpkindemo.github.io.git
   branch: gh-pages
+
+
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  debug: false
+  model:
+    use: ./live2d_models/haruna/22/model.default.json
+  display:
+    position: left
+    width: 150
+    height: 300
+  mobile:
+    show: true
+  react:
+    opacity: 0.7
