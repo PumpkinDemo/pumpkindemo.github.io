@@ -37,6 +37,7 @@ int socket(int domain, int type, int protocol);
 
 
 
+
 ```c
 int bind(int sockfd, struct sockaddr *my_addr, int addrlen);
 ```
@@ -51,6 +52,7 @@ int bind(int sockfd, struct sockaddr *my_addr, int addrlen);
 
 
 
+
 ```c
 int listen(int sockfd, int backlog);
 ```
@@ -60,6 +62,7 @@ int listen(int sockfd, int backlog);
 `backlog`: 未经处理的连接请求队列的最大容量
 
 返回值: -1表示发生了错误, `errno`为错误代码
+
 
 
 
@@ -82,6 +85,7 @@ int accept(int sockfd, void *addr, int *addrlen);
 
 
 
+
 ```c
 int connect(int sockfd, struct sockaddr *serv_addr, int addrlen);
 ```
@@ -91,6 +95,7 @@ int connect(int sockfd, struct sockaddr *serv_addr, int addrlen);
 `serv_addr`: 存储着远程计算机的信息(IP, 端口)
 
 `addrlen`: 应该是`sizeof(struct sockaddr)`, 实际上是`socklen_t`类型
+
 
 
 
@@ -107,6 +112,7 @@ int recv(int sockfd, void *buf, int len, int flags);
 `flags`: `recv()`的一个标志, 一般为0
 
 返回值: 实际接收到的数据长度, -1表示发生了错误, `errno`为错误代码
+
 
 
 
@@ -128,6 +134,7 @@ int send(int sockfd, const void *msg, int len, int flags);
 
 
 
+
 ```c
 key_t ftok(const char *path, int id);
 ```
@@ -139,6 +146,7 @@ key_t ftok(const char *path, int id);
 返回值: `key_t`的值, -1表示发生了错误
 
 `ftok`通过路径提取文件信息, 再根据这些信息和`id`合成`key_t`
+
 
 
 
@@ -158,6 +166,7 @@ int msgget(key_t key, int msgflg);
 + `IPC_CREAT | IPC_EXCL`: 如果不存在键值与`key`相等的消息队列就新建一个, 如果存在就报错
 
 返回值: 一个用`key`命名的消息队列的标识符, -1表示发生错误
+
 
 
 
