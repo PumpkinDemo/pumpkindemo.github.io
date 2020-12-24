@@ -182,8 +182,8 @@ body {
   background: var(--body-bg-color);
   color: var(--text-color);
   font-family: Source Sans Pro, "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 1em;
-  line-height: 2;
+  font-size: 0.9em;
+  line-height: 1.8;
   min-height: 100%;
   position: relative;
   transition: all 0.2s ease-in-out;
