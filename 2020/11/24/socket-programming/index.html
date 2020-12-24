@@ -32,7 +32,7 @@
 <meta property="og:description" content="一些常用的函数: 1int socket(int domain, int type, int protocol); domain可选值:  PF_UNIX, PF_LOCAL: 本地通信 AF_INET, PF_INET: IPv4 Internet PF_INET6: IPv6 Internet PF_IPX: IPX-Novell PF_NETLINK: 内核用户界面设备">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-24T12:54:08.000Z">
-<meta property="article:modified_time" content="2020-12-24T09:41:37.232Z">
+<meta property="article:modified_time" content="2020-12-24T09:44:55.704Z">
 <meta property="article:author" content="Pumpkin">
 <meta name="twitter:card" content="summary">
 
@@ -242,7 +242,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-24 17:41:37" itemprop="dateModified" datetime="2020-12-24T17:41:37+08:00">2020-12-24</time>
+        <time title="Modified: 2020-12-24 17:44:55" itemprop="dateModified" datetime="2020-12-24T17:44:55+08:00">2020-12-24</time>
       </span>
 
   
@@ -290,10 +290,14 @@
 <p><code>my_addr</code>: 一个<code>sockaddr</code>指针, 包含地址信息(名称, 端口, IP地址)</p>
 <p><code>addrlen</code>: 可以设置为<code>sizeof(struct sockaddr)</code></p>
 <p>返回值: -1表示发生错误, <code>errno</code>为错误代码</p>
+<p><br />
+</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><code>sockfd</code>: 一个<code>socket()</code>返回的套接字描述符</p>
 <p><code>backlog</code>: 未经处理的连接请求队列的最大容量</p>
 <p>返回值: -1表示发生了错误, <code>errno</code>为错误代码</p>
+<p><br />
+</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *addr, <span class="keyword">int</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><code>sockfd</code>: 一个<code>socket()</code>返回的套接字描述符</p>
 <p><code>addr</code>: 一个<code>struct sockaddr_in</code>指针, 存储着远程连接过来的计算机信息(IP, 端口)</p>
@@ -305,16 +309,22 @@
 <li>调用<code>accept()</code>连接一个连接请求</li>
 <li><code>accept()</code>返回一个新的套接字描述符, 表示建立的连接</li>
 </ul>
+<p><br />
+</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *serv_addr, <span class="keyword">int</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><code>sockfd</code>: <code>socket()</code>返回的套接字描述符</p>
 <p><code>serv_addr</code>: 存储着远程计算机的信息(IP, 端口)</p>
 <p><code>addrlen</code>: 应该是<code>sizeof(struct sockaddr)</code>, 实际上是<code>socklen_t</code>类型</p>
+<p><br />
+</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">recv</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *buf, <span class="keyword">int</span> len, <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><code>sockfd</code>: 要读取数据的套接字描述符</p>
 <p><code>buf</code>: 字符缓冲区指针, 用来放接收到的数据</p>
 <p><code>len</code>: 缓冲区长度</p>
 <p><code>flags</code>: <code>recv()</code>的一个标志, 一般为0</p>
 <p>返回值: 实际接收到的数据长度, -1表示发生了错误, <code>errno</code>为错误代码</p>
+<p><br />
+</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">send</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> *msg, <span class="keyword">int</span> len, <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><code>sockfd</code>: 远程连接的套接字描述符</p>
 <p><code>msg</code>: 字节数据指针</p>
@@ -322,11 +332,15 @@
 <p><code>flags</code>: 发送标记, 一般为0</p>
 <p>返回值: 实际发送的数据长度, -1表示发生了错误, <code>errno</code>为错误代码</p>
 <p><code>send()</code>有可能发送不完全部数据, 也就是说, 如果返回值小于<code>len</code>就需要再次发送剩下的数据</p>
+<p><br />
+</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">key_t</span> <span class="title">ftok</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">int</span> id)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><code>path</code>: 路径, 只要存在就行</p>
 <p><code>id</code>: 虽然是<code>int</code>, 但是只有8位, 随意设置</p>
 <p>返回值: <code>key_t</code>的值, -1表示发生了错误</p>
 <p><code>ftok</code>通过路径提取文件信息, 再根据这些信息和<code>id</code>合成<code>key_t</code></p>
+<p><br />
+</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> msgflg)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><code>key</code>:</p>
 <ul>
@@ -340,6 +354,8 @@
 <li><code>IPC_CREAT | IPC_EXCL</code>: 如果不存在键值与<code>key</code>相等的消息队列就新建一个, 如果存在就报错</li>
 </ul>
 <p>返回值: 一个用<code>key</code>命名的消息队列的标识符, -1表示发生错误</p>
+<p><br />
+</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgsnd</span><span class="params">(<span class="keyword">int</span> msqid, <span class="keyword">const</span> <span class="keyword">void</span> *msg, <span class="keyword">size_t</span> msgsz, <span class="keyword">int</span> msgflg)</span></span>;</span><br></pre></td></tr></table></figure>
 <p><code>msqid</code>: <code>msgget()</code>返回的消息队列标识符, 表示目标消息队列</p>
 <p><code>msg</code>: 要发送的消息</p>
