@@ -35,7 +35,7 @@ int socket(int domain, int type, int protocol);
 + `sockfd`: 一个套接字描述符
 + -1: 发生了错误, 全局变量`errno`被设置为错误代码
 
-
+\
 
 
 ```c
@@ -50,7 +50,7 @@ int bind(int sockfd, struct sockaddr *my_addr, int addrlen);
 
 返回值: -1表示发生错误, `errno`为错误代码
 
-
+\
 
 
 ```c
@@ -63,7 +63,7 @@ int listen(int sockfd, int backlog);
 
 返回值: -1表示发生了错误, `errno`为错误代码
 
-
+\
 
 
 ```c
@@ -83,7 +83,7 @@ int accept(int sockfd, void *addr, int *addrlen);
 + 调用`accept()`连接一个连接请求
 + `accept()`返回一个新的套接字描述符, 表示建立的连接
 
-
+\
 
 
 ```c
@@ -96,7 +96,7 @@ int connect(int sockfd, struct sockaddr *serv_addr, int addrlen);
 
 `addrlen`: 应该是`sizeof(struct sockaddr)`, 实际上是`socklen_t`类型
 
-
+\
 
 
 ```c
@@ -113,7 +113,7 @@ int recv(int sockfd, void *buf, int len, int flags);
 
 返回值: 实际接收到的数据长度, -1表示发生了错误, `errno`为错误代码
 
-
+\
 
 
 ```c
@@ -132,7 +132,7 @@ int send(int sockfd, const void *msg, int len, int flags);
 
 `send()`有可能发送不完全部数据, 也就是说, 如果返回值小于`len`就需要再次发送剩下的数据
 
-
+\
 
 
 ```c
@@ -147,7 +147,7 @@ key_t ftok(const char *path, int id);
 
 `ftok`通过路径提取文件信息, 再根据这些信息和`id`合成`key_t`
 
-
+\
 
 
 ```c
@@ -167,7 +167,7 @@ int msgget(key_t key, int msgflg);
 
 返回值: 一个用`key`命名的消息队列的标识符, -1表示发生错误
 
-
+\
 
 
 ```c
