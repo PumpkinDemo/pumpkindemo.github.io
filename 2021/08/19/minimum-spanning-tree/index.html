@@ -11,7 +11,7 @@
   
   <title>
     
-      Archives 
+      最小生成树 
       
       
       |
@@ -101,75 +101,168 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">最小生成树</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-08-19 20:05:58
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/algorithm/" title="algorithm">
+                    <b>#</b> algorithm
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h3 id="Prim-Algorithm"><a href="#Prim-Algorithm" class="headerlink" title="Prim Algorithm"></a>Prim Algorithm</h3><p>How does it run?</p>
+<ul>
+<li>Choose an arbitrary vertex $v$ and let $S={v}$</li>
+<li>Choose a vertex $u$ closest to $S$ and add it into $S$ and record the corresponding edge</li>
+<li>go on until all vertices are in $S$</li>
+<li>The recorded edges and $S$ constructs a <strong>Minimum Spanning Tree</strong></li>
+</ul>
+<p>Let $G=(V,E,W)$ be a weithted connected graph and has $n$ vertices.</p>
+<p>$T$ is a tree built through Prim Algorithm.</p>
+<p>Show $T$ is a <strong>minimum spanning tree</strong>:</p>
+<p>First, there must be an optimal solution which contains the edge with the minimal weight.</p>
+<p>If not, we can add this edge into the solution and obtain a cycle, then remove an edge with larger weight and we can obtain a better solution.</p>
+<p>Recursively, if $e_1,e_2,\cdots,e_k$ are in a part of some optimal solution, then $e_{k+1}$ is also in it.</p>
+</br>
+
+<h3 id="Kruskal-Algorithm"><a href="#Kruskal-Algorithm" class="headerlink" title="Kruskal Algorithm"></a>Kruskal Algorithm</h3><p>The main idea of Kruskal Algorithm is linking different connected components continuously with the edge with minimal weight, until there is only one connected componen remains.</p>
+<p>Procedure:</p>
+<ul>
+<li>Each vertex constructs a single connected component</li>
+<li>linking</li>
+<li>finish</li>
+</ul>
+<p><strong>Rightness:</strong></p>
+<p>Denote the result of Kruskal Algorithm by $T$ and the Minimal Spanning Tree by $T_{min}$</p>
+<p>Assume that there are $k$ different edges between $T$ and $T_{min}$ (permutated by weight increasingly)<br>$$<br>\begin{aligned}<br>T:&amp; a_1,a_2,\cdots,a_k\\<br>T_{min}:&amp; b_1,b_2,\cdots,b_k<br>\end{aligned}<br>$$<br>Add $a_1$ into $T_{min}$ and it leads to a cycle including some of $b_1,b_2,\cdots,b_k$</p>
+<p>Remove the most weighted edge $b$ in this cycle and belonging to $b_1,b_2,\cdots,b_k$</p>
+<p>Then obtain a new spanning tree $T_1$</p>
+<p>Edge $a_1$ and edge $b$ must have the same weight</p>
+<ul>
+<li>Since $T_{min}$ is the <strong>minimum spanning tree</strong>, $W_{a_1}\ge W_b$</li>
+<li>Since $b$ is not in $T$, according to the rule of <strong>Kruskal Algorithm</strong>, there are 2 cases:<ul>
+<li>$b$ Leads to cycle with vertices added already (since $a_1$ has the minimal weight in $a_i$s, those vertices should be the common vertices of $T$ and $T_{min}$), but is impossible because $b$ is exactly in $T_{min}$</li>
+<li>or the second case, the weight of $b$ is no less than $a_1$ and would be considered after $a_1$</li>
+</ul>
+</li>
+<li>Then it’s clear, $W_{a_1}=W_b$</li>
+</ul>
+<p>And $T_1$ is also a <strong>minimum spanning tree</strong></p>
+<p>Following this way, we can convert $T_{min}$ into $T$ with keeping its weight</p>
+<p>Hence $T$ is also a <strong>minimum spanning tree</strong></p>
+</br>
+
+<h3 id="Intresting"><a href="#Intresting" class="headerlink" title="Intresting"></a>Intresting</h3><p>MST is the short of <strong>“Minimum Spanning Tree”</strong>.</p>
+<p>Why not <strong>“Minimal Spanning Tree”</strong>?</p>
+<p>One kind of explanation:</p>
+<ul>
+<li><strong>minimum</strong> is a <em>quantitative</em> representation of the smallest amount needed</li>
+<li><strong>minimal</strong> is a is a <em>qualitative</em> characteristic</li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/08/19/hello-world/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-08-19 20:05:58
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/algorithm/" title="algorithm">
+                        <b>#</b> algorithm
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
       
-      <div class="post-item" title="最小生成树">
-        <div class="time-m-d">08-19</div>
-        <div class="title">
-          <a href="/2021/08/19/minimum-spanning-tree/">
-            <span>最小生成树</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">08-19</div>
-        <div class="title">
-          <a href="/2021/08/19/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Prim-Algorithm"><span class="toc-text">Prim Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kruskal-Algorithm"><span class="toc-text">Kruskal Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Intresting"><span class="toc-text">Intresting</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="socket in C">
-        <div class="time-m-d">08-18</div>
-        <div class="title">
-          <a href="/2021/08/18/socket-in-C/">
-            <span>socket in C</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="test">
-        <div class="time-m-d">08-18</div>
-        <div class="title">
-          <a href="/2021/08/18/test/">
-            <span>test</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="关于代数基本定理">
-        <div class="time-m-d">11-20</div>
-        <div class="title">
-          <a href="/2020/11/20/Fundamental-Theorem-of-Algebra/">
-            <span>关于代数基本定理</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="cn" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="John Doe" />
+  <meta name="description" content="in building" />
+  
+  
+  <title>
+    
+      关于代数基本定理 
+      
+      
+      |
+    
+     pumpkin的奇妙冒险
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/color-scheme.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+<link rel="stylesheet" href="/css/comments.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">Pumpkin</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">关于代数基本定理</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2020-11-20 20:45:05
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/math/" title="math">
+                    <b>#</b> math
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>定理描述：</p>
+<p>任一次数$\ge1$的复多项式在复数域中至少有一个根.</p>
+<p>代数基本定理的第一个实质性证明是由Gauss在他的博士论文中给出的.</p>
+<p>设$f(x)\in \mathbb{C}[x]$且$\partial(f(x))\ge1$，那么$f(x)$有一次因式，设为$x-\alpha_1$，令$x-\alpha_1$在$f(x)$中是$l_1-$重因式，则$(x-\alpha_1)^{l_1}|f(x)$，令<br>$$<br>f_1(x)=\frac{f(x)}{(x-\alpha_1)^{l_1}}<br>$$<br>若$\partial(f_1(x))\ge1$，则同理，$f_1(x)=\frac{f(x)}{(x-\alpha_1)^{l_1}}$也有一次因式$x-\alpha_2$，设其重数为$l_2$，则$(x-\alpha_2)^{l_2}|f_1(x)$，依次得<br>$$<br>f(x),f_1(x)=\frac{f(x)}{(x-\alpha_1)^{l_1}},\cdots,f_t(x)=\frac{f_{t-1}(x)}{(x-\alpha_t)^{l_t}}<br>$$<br>使得<br>$$<br>\partial(f_t(x))=0,f_t(x)=a_n<br>$$<br>因此，<br>$$<br>f(x)=a_n(x-\alpha_1)^{l_1}(x-\alpha_2)^{l_2}\cdots(x-\alpha_t)^{l_t}<br>$$<br>其中，$\alpha_1,\cdots,\alpha_t$是不同的复数，$l_1,\cdots,l_t$是正整数，且$l_1+\cdots+l_t=\partial(f(x))$.</p>
+<p>这是$f(x)$的标准分解，从而有，</p>
+<p>（i）复数域上每个次数$\ge1$的多项式都可以唯一地分解为一次因式的乘积；</p>
+<p>（ii）复数域上每个$n$次多项式都恰有$n$个复根（重根按重数记）.</p>
+<p>代数基本定理表明复数域作为一个数系是完善的.</p>
+<p>设$f(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_0\in\mathbb{R}[x]$，$f(x)$至少有一个复根，设为$\alpha$，即<br>$$<br>f(\alpha)=a_n\alpha^n+a_{n-1}\alpha^{n-1}+\cdots+a_0=0<br>$$<br>取共轭，有<br>$$<br>f(\bar\alpha)=a_n\bar\alpha^n+a_{n-1}\bar\alpha^{n-1}+\cdots+a_0=0<br>$$<br>这说明$\bar\alpha$也是$f(x)$的一个根.</p>
+<p>如果$\alpha$是一个实数，那么$\alpha=\bar\alpha$且$x-\alpha$是$f(x)$的一个一次因式.</p>
+<p>如果$\alpha\in\mathbb{C}$不是实数，那么$\alpha\ne\bar\alpha$，从而$x-\alpha$和$x-\bar\alpha$是$f(x)$的两个不同的复一次因式，因为<br>$$<br>(x-\alpha,x-\bar\alpha)=1<br>$$<br>所以，在$\mathbb{C}$上，$(x-\alpha)(x-\bar\alpha)|f(x)$，因为<br>$$<br>(x-\alpha)(x-\bar\alpha)=x^2-(\alpha+\bar\alpha)x+\alpha\bar\alpha<br>$$<br>是一个实二次多项式，从而在$\mathbb{R}$上也有$(x^2-(\alpha+\bar\alpha)x+\alpha\bar\alpha)|f(x)$成立，又由因式分解的唯一性，<br>$$<br>x^2-(\alpha+\bar\alpha)x+\alpha\bar\alpha<br>$$<br>是实不可约多项式，于是有</p>
+<p><strong>命题</strong> 一个实多项式$f(x)$的非实复数根总是成对出现，即当$\alpha$是$f(x)$的根的时候，$\bar\alpha$也是$f(x)$的根，且$x^2-(\alpha+\bar\alpha)x+\alpha\bar\alpha$是$f(x)$在实数域上的不可约二次因式.</p>
+<p>每个次数$\ge1$的实多项式在实数域上总可以唯一地分解为一次因式和二次不可约因式的乘积.</p>
+<p>复不可约多项式是一次的，实不可约多项式是一次或者二次的，那么有理不可约多项式呢？</p>
+<p>有理多项式的因式分解可以归结为整数多项式的因式分解.</p>
+<p><strong>Gauss引理</strong> 两个本原多项式的积仍然是本原多项式.</p>
+<p><strong>证</strong>：</p>
+<p>设<br>$$<br>\begin{align}<br>f(x)&amp;=a_nx^n+\cdots+a_1x+a_0,\\<br>g(x)&amp;=b_mx^m+\cdots+b_1x+b_0<br>\end{align}<br>$$<br>是两个本原多项式，令<br>$$<br>h(x)\triangleq f(x)g(x)=d_{n+m}x^{n+m}+\cdots+d_1x+d_0<br>$$<br>其中，$d_l=\sum_{s+t=l}a_sb_t$，对于$l=0,1,\cdots,n+m$.</p>
+<p>$f(x)$和$g(x)$是本原的，故$p$不能整除它们所有的系数，从而存在$i$和$j$，使得</p>
+<p>$p|a_0,\cdots,p|a_{i-1}$但是$p\nmid a_i$，</p>
+<p>$p|b_0,\cdots,p|b_{j-1}$但是$p\nmid b_i$.</p>
+<p>考虑<br>$$<br>d_{i+j}=a_ib_j+(a_{i+1}b_{j-1}+a_{i+2}b_{j-2}+\cdots+a_{i+j}b_0)+(a_{i-1}b_{j+1}+a_{i-2}b_{j+2}+\cdots+a_{0}b_{i+j})<br>$$<br>其中$p|d_{i+j}$，从而也整除右边，但$p$实际上整除右边除了$a_ib_j$外的所有项，所以$p$不能整除右边，矛盾.</p>
+<p>所以$h(x)$是本原多项式.</p>
+<p><strong>定理</strong> 一个非零的整系数多项式若能分解成两个较低次有理多项式之积，则一定也能分解为两个较低次整系数多项式之积.</p>
+<p><strong>证</strong>:</p>
+<p>设整系数多项式<br>$$<br>f(x)=g(x)h(x)<br>$$<br>其中$g(x),h(x)\in\mathbb{Q}[x]$且$\partial(g(x))&lt;\partial(f(x))$，$\partial(h(x))&lt;\partial(f(x))$，则存在本原多项式$f_1(x),g_1(x),h_1(x)$使得<br>$$<br>f(x)=af_1(x),\ g(x)=rg_1(x),\ h(x)=sh_1(x)<br>$$<br>其中$a\in \mathbb{Z}$，$r,s\in\mathbb{Q}$，从而$af_1(x)=rsg_1(x)h_1(x)$.</p>
+<p>由Gauss引理，$g_1(x)h_1(x)$是本原多项式，$f_1(x)=\pm g_1(x)h_1(x)$，$a=\mp rs$，则$rs\in \mathbb{Z}$，于是<br>$$<br>f(x)=(rsg_1(x))h_1(x)<br>$$</p>
+<p>其中$rsg_1(x)$是整系数多项式.</p>
+<p>类似的，也可以得到</p>
+<p><strong>命题</strong> 设$f(x),g(x)$是整系数多项式且$g(x)$是本原的，若$f(x)=g(x)h(x)$，其中$h(x)$是有理多项式，那么$h(x)$必是整系数的.</p>
+<p>然后就有一个求整系数多项式全部有理根的方法，也就是</p>
+<p><strong>定理</strong> 设$f(x)=a_nx^n+\cdots+a_1x+a_0$是一个整系数多项式，$a=\frac{r}{s}$是$f(x)$的一个有理根，其中$r$和$s$是互素的整数，那么一定有$r|a_0$，$s|a_n$.</p>
+<p><strong>证</strong>：</p>
+<p>因为$f(\alpha)=0$，所以在$\mathbb{Q}$上有$(x-\alpha)|f(x)$，从而$(sx-r)|f(x)$.</p>
+<p>由$s$与$r$互素，$sx-r$是本原多项式，于是有整系数多项式$b_{n-1}x^{n-1}+\cdots+b_1x+b_0$使得<br>$$<br>f(x)=(sx-r)(b_{n-1}x^{n-1}+\cdots+b_1x+b_0)<br>$$<br>比较上式两边的整系数，得$a_n=sb_{n-1}$，$a_0=-rb_0$.</p>
+<p>所以$r|a_0$，$s|a_n$.</p>
+<p>特别的，若$f(x)=x^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0$是一个首系数为$1$得整系数多项式，那么$f(x)$可能的有理根必为整数且均为$a_0$的因子.</p>
+<p><strong>Eisenstein判别法</strong> 设$f(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0x$是一个整系数多项式，如果存在素数$p$使得：</p>
+<p>1）$p\nmid a_n$</p>
+<p>2）$p|a_{n-1},a_{n-2},\cdots,a_0$</p>
+<p>3）$p^2\nmid a_0$</p>
+<p>那么$f(x)$在有理数域上是不可约多项式.</p>
+<p><strong>证</strong>:</p>
+<p>用反证法，若$f(x)$在$\mathbb{Q}$上可约，则$f(x)$可以分解为两个较低次整系数多项式之积，设为<br>$$<br>f(x)=(b_sx^s+\cdots+b_1x+b_0)(c_tx^t+\cdots+c_1x+x_0)<br>$$<br>则有$a_n=b_sc_t$，$a_0=b_0c_0$.</p>
+<p>一般地，对于$0\le k\le n$，有<br>$$<br>a_k=b_kc_0+b_{k-1}c_1+\cdots+b_1c_{k_1}+b_0c_k<br>$$<br>因为$p|a_0$，所以$p|b_0$或者$p|c_0$，但$p^2\nmid a_0$，于是$p|b_0$和$p|c_0$不同时成立，不妨设$p|b_0$但$p\nmid c_0$.</p>
+<p>另一方面，$p\nmid a_n$故$p\nmid b_s$，假设$b_0,b_1,\cdots,b_s$中第一个不能被$p$整除的是$b_i$，那么$0\le i\le s&lt;n$，但是<br>$$<br>a_i=b_ic_0+b_{i-1}c_1+\cdots+b_0c_i<br>$$<br>其中$a_i,b_0,b_1,\cdots,b_{i-1}$均可被$p$整除，故$p|b_ic_0$，得$p|b_i$或者$p|c_0$，这与假设矛盾.</p>
+<p>需要注意的是，Eisenstein判别法只是给出了多项式不可约的一个充分而非必要的条件，即就算找不到合适的$p$使条件成立，也不能说多项式一定不可约.</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2020-11-20 20:45:05
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/math/" title="math">
+                        <b>#</b> math
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2021/08/18/test/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2021</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
