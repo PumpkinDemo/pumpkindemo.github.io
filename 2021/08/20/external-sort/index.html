@@ -11,7 +11,7 @@
   
   <title>
     
-      socket in C 
+      外部排序 
       
       
       |
@@ -129,134 +129,90 @@ MathJax = {
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">socket in C</div>
+      <div class="post-title">外部排序</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="Update time"></i>
-          2021-08-18 19:34:30
+          2021-08-20 16:32:19
         </span>
         
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/algorithm/" title="algorithm">
+                    <b>#</b> algorithm
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
       <div class="markdown-body">
-        <p>一些常用的函数:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>domain</code>可选值:</p>
+        <p>一般讨论的排序都是内部排序，所谓外部和内部，是针对排序时的条件而言的，内部指所有的数据都可以直接拿到，而外部就是每次只能拿到一部分数据，最典型的现实场景</p>
 <ul>
-<li><code>PF_UNIX</code>, <code>PF_LOCAL</code>: 本地通信</li>
-<li><code>AF_INET</code>, <code>PF_INET</code>: IPv4 Internet</li>
-<li><code>PF_INET6</code>: IPv6 Internet</li>
-<li><code>PF_IPX</code>: IPX-Novell</li>
-<li><code>PF_NETLINK</code>: 内核用户界面设备</li>
+<li>对数组进行排序，整个数组当然都是在内存里的，可以直接拿到</li>
+<li>而对磁盘数据（比如文件）进行排序，要先把数据读进内存，而且限于内存的大小，内存中在某一时刻只能有一部分数据</li>
 </ul>
-<p><code>type</code>可选值:</p>
+<p>外部排序的限制在于从磁盘读数据是一件很麻烦的事情，因为在磁盘上的数据存储并不是和在内存中那样是连续的，有个地址就可以直接访问，而是分散的，而且每次找一个数据都得寻道，旋转，再数据传输，排序的结果还得再写回磁盘，实际磁盘I/O的时间会远超在内存上操作的时间，所以要尽可能减少对磁盘的访问，I/O次数也成为外部排序时主要考虑的代价</p>
+<p>这时候可以选什么排序算法来进行外部排序呢，很明显，选择排序，冒泡排序，这种每一趟都得把数据基本过一遍的算法是不行的，实际上可以想到，归并排序是个不错的选择</p>
+<p>例如，一个有2000个记录的文件，每个磁盘块可以容纳125个记录，首先通过8次内部排序得到8个初始归并段R1到R8，每个段有250个记录，然后对该文件做两两归并，直至得到一个有序的文件</p>
+<p>把内存分出三个缓冲区，两个输入一个输出，从R1和R2分别读一个磁盘块到输入缓冲区，归并到输出缓冲区，钥匙其中一个缓冲区空了就再读一个，然后把输出写到磁盘，再归并R3和R4，R5和R6，R7和R8，分别得到R1’-R4’</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">R1--R2      R3--R4      R5--R6      R7--R8</span><br><span class="line">  ｜           ｜          ｜          ｜</span><br><span class="line">  R1&#x27; ------- R2&#x27;         R3&#x27; ------- R4&#x27;</span><br><span class="line">         |                       |</span><br><span class="line">        R1&#x27;&#x27; ------------------ R2&#x27;&#x27;</span><br><span class="line">                    |</span><br><span class="line">                    R</span><br></pre></td></tr></table></figure>
+
+<p>这样的话，一躺归并要读16个磁盘块，写16个磁盘块，内部排序也要读16次，写16次，总共的I/O次数：<br>$$<br>32\times 3 + 32=128<br>$$<br>如果改成四路归并，就只需要2趟归并：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">R1--R2--R3--R4      R5--R6--R7--R8</span><br><span class="line">       |                   |</span><br><span class="line">      R1&#x27; --------------- R2&#x27;</span><br><span class="line">                |</span><br><span class="line">                R</span><br></pre></td></tr></table></figure>
+
+<p>这样外部排序的I/O次数就少了，但这样需要内存提供更多的缓冲区</p>
+<h3 id="败者树"><a href="#败者树" class="headerlink" title="败者树"></a>败者树</h3><p>增加归并排序的路数k固然可以减少I/O次数，但是内部归并的时间却增加了，因为在k个元素中选一个最小的需要做k-1次比较，每趟归并n个元素，要比较$(n-1)(k-1)$次，r个初始归并段，S趟归并总共需要的比较次数为：<br>$$<br>S(n-1)(k-1)=\log_k r(n-1)(k-1)=\frac{\log r}{\log k}(n-1)(k-1)<br>$$<br>可以看到随着k的增大，内部归并的时间也变多了，这时候就不能用普通的内部归并算法了</p>
+<p>败者树主要用于选出k个元素里最小的那个，比如有8个元素，先两两比较，选出4强，再半决赛，在决赛，最后胜利的一定是冠军，但是只比了3次</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">               a</span><br><span class="line">               |</span><br><span class="line">      a ------------- e</span><br><span class="line">      |               |</span><br><span class="line">  a ----- c       e ----- g</span><br><span class="line">  |       |       |       |</span><br><span class="line">a---b   c---d   e---f   g---h</span><br></pre></td></tr></table></figure>
+
+<p>显然败者树是一颗完全二叉树，k路归并的话，从k个数据里选最小的，比较的次数为$\log k$，总的比较次数为<br>$$<br>S(n-1)\log k=(\log_k r)(n-1)\log k=(n-1)\log r<br>$$<br>这样内部归并比较的次数就与k无关了</p>
+<p>但即使是这样，k也不是越大越好，k增大时，内存要提供更多个数的缓冲区，每个缓冲区的容量就会变小，内外存交换的次数会增加，因此当k过大时，归并趟数会减少，但外存I/O次数还是会增加</p>
+<h3 id="置换-选择排序"><a href="#置换-选择排序" class="headerlink" title="置换-选择排序"></a>置换-选择排序</h3><p>还有什么优化的方向呢，减少初始归并段的个数$r$也开始减少归并趟数S，内部排序在生成初始归并段的时候，依赖于内存工作区，只能生成相当于内存工作区大小的初始归并段，有什么操作可以跳出这个限制呢</p>
+<p>基本思路是这样的</p>
+<ol>
+<li>一个工作区，大小为w，先从文件读w个记录进去</li>
+<li>从工作区里选一个最小的，输出并把值记录下来</li>
+<li>往工作区里补一个记录，再找一个最小的但是比已经输出的值要大的，输出</li>
+<li>重复，直到找不到比已经输出的值要大的</li>
+<li>结束，一个初始归并段生成了</li>
+</ol>
+<p>其中“从工作区里的w个记录里找一个最小的”的操作是基于败者树的</p>
+<h3 id="最佳归并树"><a href="#最佳归并树" class="headerlink" title="最佳归并树"></a>最佳归并树</h3><p>置换-选择排序后，产生了一系列不等长的初始归并段，那么如何安排归并顺序呢，显然不同的顺序开销是不同的</p>
+<p>比如，有9个初始归并段，长度为9，30，12，18，3，17，2，6，24</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[9]-[30]-[12]   [18]-[3]-[17]   [2]-[6]-[24]</span><br><span class="line">     |                |              |</span><br><span class="line">    [51] ---------- [38] ---------- [32]</span><br><span class="line">                      |</span><br><span class="line">                    [121]</span><br></pre></td></tr></table></figure>
+
+<p>归并树的带权路径长度（WPL）为归并过程中的总读记录数，在上面的归并树中，WPL=242</p>
+<p>实际上，可以用Huffman树的思想来优化归并树，将比较小的归并段先归并</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">     [2]-[3]-[6]</span><br><span class="line">          |</span><br><span class="line">     [9]-[11]-[12]  [17]-[18]-[24]</span><br><span class="line">          |                |</span><br><span class="line">[30]-----[32]------------[59]</span><br><span class="line">          |</span><br><span class="line">        [121]</span><br></pre></td></tr></table></figure>
+
+<p>这样的话，WPL只有223（把除了根节点的每个节点的值都加起来）</p>
+<p>其实上图中的Huffman树是一颗严格的三叉树，即节点的度要么是0要么是3，但实际场景中这种刚刚好的场景是很少的，比如缺一个30，这时候构造Huffman时最后一次归并将是2路归并，WPL为193，但这并不是最优的</p>
+<p>正确的做法应该是：补上1个值为0的节点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[0]-[2]-[3]</span><br><span class="line">     |</span><br><span class="line">    [5]-[6]-[9]             [12]-[17]-[18]</span><br><span class="line">         |                        |</span><br><span class="line">        [20]--------[24]---------[47]</span><br><span class="line">                     |</span><br><span class="line">                    [91]</span><br></pre></td></tr></table></figure>
+
+<p>那么如何确定应该补几个0节点呢？</p>
 <ul>
-<li><code>SOCK_STREAM</code>: 流式套接字, TCP</li>
-<li><code>SOCK_DGRAM</code>: 数据包套接字, UDP</li>
-<li><code>SOCK_SEQPACKET</code>: 序列化包</li>
-<li><code>SOCK_RAW</code>: RAW类型, 提供原始网络协议访问</li>
-<li><code>SOCK_RDM</code>: 提供可靠的数据报文, 不过可能数据有乱序</li>
-<li><code>SOCK_PACKET</code>: 专用类型, 不能再通用程序中使用</li>
+<li>设度为0的节点有$n_0$个，度为k的节点有$n_k$个，如果是严格k叉树，有$n_0=(k-1)n_k+1$</li>
+<li>也就是$n_k=(n_0-1)/(k-1)$<ul>
+<li>如果$k-1|n_0-1$，说明刚好</li>
+<li>如果$n_0-1\equiv u \mod k-1$，说明多出来$u$个，补上$k-1-u$个就好了</li>
 </ul>
-<p><code>protocol</code>可选值:</p>
-<ul>
-<li>通常协议中只有一种特定类型, 这时protocol参数只能设置为0</li>
+</li>
 </ul>
-<p>返回值:</p>
-<ul>
-<li><code>sockfd</code>: 一个套接字描述符</li>
-<li>-1: 发生了错误, 全局变量<code>errno</code>被设置为错误代码</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *my_addr, <span class="keyword">int</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>sockfd</code>: 一个<code>socket()</code>函数返回的套接字描述符</p>
-<p><code>my_addr</code>: 一个<code>sockaddr</code>指针, 包含地址信息(名称, 端口, IP地址)</p>
-<p><code>addrlen</code>: 可以设置为<code>sizeof(struct sockaddr)</code></p>
-<p>返回值: -1表示发生错误, <code>errno</code>为错误代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>sockfd</code>: 一个<code>socket()</code>返回的套接字描述符</p>
-<p><code>backlog</code>: 未经处理的连接请求队列的最大容量</p>
-<p>返回值: -1表示发生了错误, <code>errno</code>为错误代码</p>
-</br>
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *addr, <span class="keyword">int</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>sockfd</code>: 一个<code>socket()</code>返回的套接字描述符</p>
-<p><code>addr</code>: 一个<code>struct sockaddr_in</code>指针, 存储着远程连接过来的计算机信息(IP, 端口)</p>
-<p><code>addrlen</code>: 值应该是<code>sizeof(struct sockaddr)</code>, <code>accept()</code>不会在<code>addr</code>中存储多于<code>addrlen</code>的字节, 如果<code>addr</code>中的数据不够<code>addrlen</code>, <code>accept()</code>会改变<code>addrlen</code>的值</p>
-<p>调用情景:</p>
-<ul>
-<li>有人从其他地方尝试用<code>connect()</code>连接你的某个端口(已经在<code>listen()</code>)</li>
-<li><code>listen()</code>将连接请求加入<code>accept()</code>的等待队列</li>
-<li>调用<code>accept()</code>连接一个连接请求</li>
-<li><code>accept()</code>返回一个新的套接字描述符, 表示建立的连接</li>
-</ul>
-<p>\</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *serv_addr, <span class="keyword">int</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>sockfd</code>: <code>socket()</code>返回的套接字描述符</p>
-<p><code>serv_addr</code>: 存储着远程计算机的信息(IP, 端口)</p>
-<p><code>addrlen</code>: 应该是<code>sizeof(struct sockaddr)</code>, 实际上是<code>socklen_t</code>类型</p>
-<p>\</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">recv</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *buf, <span class="keyword">int</span> len, <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>sockfd</code>: 要读取数据的套接字描述符</p>
-<p><code>buf</code>: 字符缓冲区指针, 用来放接收到的数据</p>
-<p><code>len</code>: 缓冲区长度</p>
-<p><code>flags</code>: <code>recv()</code>的一个标志, 一般为0</p>
-<p>返回值: 实际接收到的数据长度, -1表示发生了错误, <code>errno</code>为错误代码</p>
-<p>\</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">send</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> *msg, <span class="keyword">int</span> len, <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>sockfd</code>: 远程连接的套接字描述符</p>
-<p><code>msg</code>: 字节数据指针</p>
-<p><code>len</code>: 数据长度</p>
-<p><code>flags</code>: 发送标记, 一般为0</p>
-<p>返回值: 实际发送的数据长度, -1表示发生了错误, <code>errno</code>为错误代码</p>
-<p><code>send()</code>有可能发送不完全部数据, 也就是说, 如果返回值小于<code>len</code>就需要再次发送剩下的数据</p>
-<p>\</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">key_t</span> <span class="title">ftok</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">int</span> id)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>path</code>: 路径, 只要存在就行</p>
-<p><code>id</code>: 虽然是<code>int</code>, 但是只有8位, 随意设置</p>
-<p>返回值: <code>key_t</code>的值, -1表示发生了错误</p>
-<p><code>ftok</code>通过路径提取文件信息, 再根据这些信息和<code>id</code>合成<code>key_t</code></p>
-<p>\</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> msgflg)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>key</code>: </p>
-<ul>
-<li>0(<code>IPC_PRIVATE</code>)表示建立新的消息队列</li>
-<li>大于0, 根据<code>msgflg</code>来确定操作, 一般来源于<code>ftok()</code>返回的IPC键值</li>
-</ul>
-<p><code>msgflg</code>:</p>
-<ul>
-<li>0表示取消消息队列标识符, 如果不存在则报错</li>
-<li><code>IPC_CREAT</code>: 当<code>msgflg &amp; IPC_CREAT</code>为真时, 如果不存在键值与<code>key</code>相等的消息队列, 就新建一个, 如果存在这样的消息队列, 返回其标识符</li>
-<li><code>IPC_CREAT | IPC_EXCL</code>: 如果不存在键值与<code>key</code>相等的消息队列就新建一个, 如果存在就报错</li>
-</ul>
-<p>返回值: 一个用<code>key</code>命名的消息队列的标识符, -1表示发生错误</p>
-<p>\</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgsnd</span><span class="params">(<span class="keyword">int</span> msqid, <span class="keyword">const</span> <span class="keyword">void</span> *msg, <span class="keyword">size_t</span> msgsz, <span class="keyword">int</span> msgflg)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>msqid</code>: <code>msgget()</code>返回的消息队列标识符, 表示目标消息队列</p>
-<p><code>msg</code>: 要发送的消息</p>
-<p><code>msgsz</code>: 消息的长度</p>
-<p><code>msgflg</code>:</p>
-<ul>
-<li>0表示当目标消息队列已满的时候, 阻塞当前消息的发送, 直到消息能进入目标消息队列</li>
-<li><code>IPC_NOWAIT</code>: 当消息队列已满的时候, 不等待, 立即返回</li>
-<li><code>IPC_NOERROR</code>: 若要发送的消息过大, 则将消息截断并把多余部分丢弃, 且不通知发送进程</li>
-</ul>
-<p>返回值: 0表示成功, -1表示发生了错误</p>
+<p>注意，初始节点全是度为0的节点</p>
+<p>比如，8个初始节点，3路归并，$8-1\equiv1\mod 3-1$，多1个，补1个</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>外部排序相较于内部排序，很重要的一点是考虑了实际环境的限制，而且外部排序的过程中也涉及到了内部排序</p>
+<p>在外部排序的优化过程中，除去优化的方法，优化的思路更值得关注</p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2021/08/18/test/" target="_self">
+              <a href="/2021/08/19/minimum-spanning-tree/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -265,22 +221,43 @@ MathJax = {
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="Update time"></i>
-              2021-08-18 19:34:30
+              2021-08-20 16:32:19
             </span>
             
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/algorithm/" title="algorithm">
+                        <b>#</b> algorithm
+                      </a>
+                    </span>
+                    
+                  </span>
+              
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2021/08/19/hello-world/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
       
     </div>
     
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A5%E8%80%85%E6%A0%91"><span class="toc-text">败者树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%AE%E6%8D%A2-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-text">置换-选择排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91"><span class="toc-text">最佳归并树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
 
     
       <div class="comments-container">
