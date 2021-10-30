@@ -11,7 +11,7 @@
   
   <title>
     
-      Archives 
+      About RSA 
       
       
       |
@@ -101,93 +101,151 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">About RSA</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-10-30 16:12:25
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Crypto/" title="Crypto">
+                    <b>#</b> Crypto
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h3 id="RSA-procedure"><a href="#RSA-procedure" class="headerlink" title="RSA procedure"></a>RSA procedure</h3><ol>
+<li>choose two primes, $p$ and $q$</li>
+<li>calculate $N = p\times q$</li>
+<li>calculate $r = \varphi(N)= \varphi(p\times q)=(p-1)(q-1)$<ul>
+<li>$\varphi$ is the Eular function, $\varphi(n)$ represents the number of integers prime with $n$</li>
+<li>if $n$ is a prime, then obviously $\varphi(n)=n-1$</li>
+<li>$\varphi(mn)=\varphi(m)\varphi(n)$</li>
+</ul>
+</li>
+<li>choose $e$ no more than $N$ and prime with $r$</li>
+<li>calculate $d$ such that $ed \equiv1 \mod r$</li>
+<li>then $(e, N)$ is public key and $(d, N)$ is private key</li>
+<li>don’t forget to destroy $p$ and $q$</li>
+</ol>
+<p>Now Alice wants to send some message to Bob.</p>
+<p>She needs to transform the message string into a integer $m$ no more then $N$.</p>
+<ul>
+<li>ciphertext $c = m^e \bmod N$</li>
+</ul>
+<p>When Bob receive the ciphertext, he needs to decrypt it.</p>
+<ul>
+<li>plaintext $m = c^d \bmod N$</li>
+</ul>
+<h3 id="Rightness"><a href="#Rightness" class="headerlink" title="Rightness"></a>Rightness</h3><p>How to show that Bob can get right raw message?</p>
+<p>Just to show that $c^d \equiv m \mod N$<br>$$<br>\begin{align}<br>c^d &amp;\equiv (m^e)^d \mod N \\<br>&amp;\equiv m^{ed} \mod N \\<br>&amp;\equiv m^{tr+1} \mod N \\<br>&amp;\equiv m\cdot m^{tr} \mod N \\<br>&amp;\equiv m\cdot (m^{\varphi(N)})^t \mod N \\<br>&amp;\equiv m\cdot 1^t \mod N \\<br>&amp;\equiv m \mod N<br>\end{align}<br>$$<br>The key point is $m^{\varphi(N)}\equiv1 \mod N$ when $\gcd(m, N)=1$</p>
+<h3 id="More"><a href="#More" class="headerlink" title="More"></a>More</h3><p>In fact, we can choose more than two primes at beginning.</p>
+<p>For example, choose $n$ primes $p_1, p_2, \cdots,p_n$</p>
+<p>calculate $N = p_1\times p_2\times\cdots\times p_n$</p>
+<p>and calculate $r = \varphi(N) = (p_1-1)(p_2-1)\cdots(p_n-1)$</p>
+<p>then everything is the same.</p>
+<p>The difficulty to crack RSA decides to the difficulty to factoring a big intger.</p>
+<p>The big intger is just $N$ and if we can factor it into some primes, then we can calculate $r$, and get $d$.</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/08/20/external-sort/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-10-30 16:12:25
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Crypto/" title="Crypto">
+                        <b>#</b> Crypto
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
       
-      <div class="post-item" title="About RSA">
-        <div class="time-m-d">10-30</div>
-        <div class="title">
-          <a href="/2021/10/30/About-RSA/">
-            <span>About RSA</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="外部排序">
-        <div class="time-m-d">08-20</div>
-        <div class="title">
-          <a href="/2021/08/20/external-sort/">
-            <span>外部排序</span>
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#RSA-procedure"><span class="toc-text">RSA procedure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rightness"><span class="toc-text">Rightness</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#More"><span class="toc-text">More</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="最小生成树">
-        <div class="time-m-d">08-19</div>
-        <div class="title">
-          <a href="/2021/08/19/minimum-spanning-tree/">
-            <span>最小生成树</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">08-19</div>
-        <div class="title">
-          <a href="/2021/08/19/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="socket in C">
-        <div class="time-m-d">08-18</div>
-        <div class="title">
-          <a href="/2021/08/18/socket-in-C/">
-            <span>socket in C</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="test">
-        <div class="time-m-d">08-18</div>
-        <div class="title">
-          <a href="/2021/08/18/test/">
-            <span>test</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="关于代数基本定理">
-        <div class="time-m-d">11-20</div>
-        <div class="title">
-          <a href="/2020/11/20/Fundamental-Theorem-of-Algebra/">
-            <span>关于代数基本定理</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">
