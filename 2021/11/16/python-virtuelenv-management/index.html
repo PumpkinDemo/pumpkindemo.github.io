@@ -11,7 +11,7 @@
   
   <title>
     
-      archive_a: 2020 
+      python虚拟环境管理 
       
       
       |
@@ -101,102 +101,124 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">python虚拟环境管理</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-11-16 15:19:22
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/python/" title="python">
+                    <b>#</b> python
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>First, two packages:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install virtualenv</span><br><span class="line">pip3 install virtualenvwrapper</span><br></pre></td></tr></table></figure>
+
+<p><code>virtualenv</code> makes one can create new virtual environment conveniently, like:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv new_env</span><br></pre></td></tr></table></figure>
+
+<p>and a new directory named <code>new_env</code> will be created under the current directory.</p>
+<p><code>virtualenvwrapper</code> is a wrapper of <code>virtualenv</code>, which allows one to manage virtual environments.</p>
+<p>It supplies some commands:</p>
+<ul>
+<li><code>mkvirtualenv</code>: create a new virtual env</li>
+<li><code>rmvirtualenv</code>: remove a certain virtual env</li>
+<li><code>workon</code>: active or switch virtual env</li>
+<li><code>deactivate</code>: deactivate or exit the virtual env</li>
+<li><code>lsvirtualenv</code>: list all available virtual env</li>
+</ul>
+<p>To enjoy the wrapper, put</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export WORKON_HOME=&#x27;~/root/.virtualenvs&#x27;</span><br><span class="line">source `which virtualenvwrapper.sh`</span><br></pre></td></tr></table></figure>
+
+<p>into your favorite shell init file, such as <code>.zshrc</code>, <code>.bashrc</code>, <code>.bash_profile</code></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/10/30/About-RSA/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-11-16 15:19:22
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/python/" title="python">
+                        <b>#</b> python
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
       
-      <div class="post-item" title="python虚拟环境管理">
-        <div class="time-m-d">11-16</div>
-        <div class="title">
-          <a href="/2021/11/16/python-virtuelenv-management/">
-            <span>python虚拟环境管理</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="About RSA">
-        <div class="time-m-d">10-30</div>
-        <div class="title">
-          <a href="/2021/10/30/About-RSA/">
-            <span>About RSA</span>
-          </a>
-        </div>
-      </div>
+
     
-      <div class="post-item" title="外部排序">
-        <div class="time-m-d">08-20</div>
-        <div class="title">
-          <a href="/2021/08/20/external-sort/">
-            <span>外部排序</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="最小生成树">
-        <div class="time-m-d">08-19</div>
-        <div class="title">
-          <a href="/2021/08/19/minimum-spanning-tree/">
-            <span>最小生成树</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">08-19</div>
-        <div class="title">
-          <a href="/2021/08/19/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="socket in C">
-        <div class="time-m-d">08-18</div>
-        <div class="title">
-          <a href="/2021/08/18/socket-in-C/">
-            <span>socket in C</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="test">
-        <div class="time-m-d">08-18</div>
-        <div class="title">
-          <a href="/2021/08/18/test/">
-            <span>test</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="关于代数基本定理">
-        <div class="time-m-d">11-20</div>
-        <div class="title">
-          <a href="/2020/11/20/Fundamental-Theorem-of-Algebra/">
-            <span>关于代数基本定理</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">
