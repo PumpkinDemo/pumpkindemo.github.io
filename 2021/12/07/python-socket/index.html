@@ -11,6 +11,11 @@
   
   <title>
     
+      python socket 
+      
+      
+      |
+    
      pumpkin的奇妙冒险
   </title>
 
@@ -96,134 +101,143 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="python socket">
-        <div class="time-m-d">2021-12-07</div>
-        <div class="title">
-          <a href="/2021/12/07/python-socket/">
-            
-              
-                <span>python socket</span>
-              
-            
-          </a>
-        </div>
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">python socket</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-12-07 19:47:44
+        </span>
+        
       </div>
-    
-      <div class="post-item" title="python虚拟环境管理">
-        <div class="time-m-d">2021-11-16</div>
-        <div class="title">
-          <a href="/2021/11/16/python-virtuelenv-management/">
-            
-              
-                <span>python虚拟环境管理</span>
-              
-            
-          </a>
-        </div>
+      <div class="markdown-body">
+        <p>How to build socket server and socket client by python?</p>
+<p>The first think to decide is which protocol to use, TCP or UDP?</p>
+<p>The main difference is that TCP is connection-oriented while UDP is connectionless.</p>
+<p>In detail, the server or the client must maintain a connection if they use TCP.</p>
+<p>How is this reflected in socket programming?</p>
+<h3 id="For-UDP"><a href="#For-UDP" class="headerlink" title="For UDP"></a>For UDP</h3><p>For example, if we want to send a message using UDP</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"><span class="comment"># s.bind(&#x27;0.0.0.0&#x27;, 2333)</span></span><br><span class="line">address = (<span class="string">&#x27;123.123.123.123&#x27;</span>, <span class="number">2333</span>)</span><br><span class="line">s.sendto(<span class="string">b&#x27;hi~&#x27;</span>, address)</span><br></pre></td></tr></table></figure>
+
+<p>Only the target address is required.</p>
+<p>And the receiver (server) only need to specify its address using <code>bind</code> as a unique identifier on the internet so that the message sender could know where it is.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">s.bind(<span class="string">&#x27;0.0.0.0&#x27;</span>, <span class="number">2333</span>)</span><br><span class="line">bufsize = <span class="number">8192</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">	message, address = s.recvfrom(bufsize)</span><br><span class="line">	<span class="built_in">print</span>(message)</span><br><span class="line">	s.sendto(<span class="string">b&#x27;hello&#x27;</span>, address)</span><br></pre></td></tr></table></figure>
+
+<p>The main characteristic of UDP is that every sending of message is isolated and context-free.</p>
+<p>Just <code>sendto(message, address)</code> no matter the sender is the server or the client, the boundary between the server and the client is vague and the distinguishment of server and client is unimportant.</p>
+<h3 id="For-TCP"><a href="#For-TCP" class="headerlink" title="For TCP"></a>For TCP</h3><p>But when it comes to TCP, things becomes difficult.</p>
+<p>For the message sender:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"><span class="comment"># s.bind(&#x27;0.0.0.0&#x27;, 2333)</span></span><br><span class="line">address = (<span class="string">&#x27;123.123.123.123&#x27;</span>, <span class="number">2333</span>)</span><br><span class="line">s.connect(address)</span><br><span class="line">bufsize = <span class="number">8192</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    s.send(<span class="string">b&#x27;hi~&#x27;</span>)</span><br><span class="line">    msg = s.recv(bufsize)</span><br><span class="line">    <span class="built_in">print</span>(msg)</span><br><span class="line">s.close()</span><br></pre></td></tr></table></figure>
+
+<p>Before sending the message, it should do <code>connect</code> first and close the connection after communication.</p>
+<p>The target address would be sepcify only when the connection is created.</p>
+<p>For the message receiver (server):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">s.bind(<span class="string">&#x27;0.0.0.0&#x27;</span>, <span class="number">2333</span>)</span><br><span class="line">max_conn = <span class="number">5</span></span><br><span class="line">s.listen(max_conn)</span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    conn, address = s.accept()</span><br><span class="line">    bufsize = <span class="number">1024</span></span><br><span class="line">    <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            msg = conn.recv(bufsize)</span><br><span class="line">            <span class="built_in">print</span>(msg)</span><br><span class="line">            conn.send(<span class="string">b&#x27;hello&#x27;</span>)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;connection break&#x27;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure>
+
+<p>The server should wait for connections and maintain them until ending.</p>
+<p>In fact, a connection is also a <code>socket.socket</code> object (a file discriptor).</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>for UDP:</p>
+<ol>
+<li>init</li>
+<li><code>bind</code> address if is receiver (server)</li>
+<li><code>sendto</code> or <code>recvfrom</code></li>
+</ol>
+<p>for TCP client:</p>
+<ol>
+<li>init</li>
+<li><code>connect</code> to a server</li>
+<li><code>send</code> and <code>recv</code> messages</li>
+<li><code>close</code> the connection</li>
+</ol>
+<p>for TCP server:</p>
+<ol>
+<li>init</li>
+<li><code>bind</code> an address</li>
+<li><code>accept</code> a connection</li>
+<li><code>send</code> and <code>recv</code> messages</li>
+<li><code>close</code> the connection</li>
+</ol>
+
       </div>
-    
-      <div class="post-item" title="About RSA">
-        <div class="time-m-d">2021-10-30</div>
-        <div class="title">
-          <a href="/2021/10/30/About-RSA/">
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-              
-                <span>About RSA</span>
-              
+              <a href="/2021/11/16/python-virtuelenv-management/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
             
-          </a>
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-12-07 19:47:44
+            </span>
+            
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
-      </div>
+      
+    </div>
     
-      <div class="post-item" title="外部排序">
-        <div class="time-m-d">2021-08-20</div>
-        <div class="title">
-          <a href="/2021/08/20/external-sort/">
-            
-              
-                <span>外部排序</span>
-              
-            
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#For-UDP"><span class="toc-text">For UDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#For-TCP"><span class="toc-text">For TCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="最小生成树">
-        <div class="time-m-d">2021-08-19</div>
-        <div class="title">
-          <a href="/2021/08/19/minimum-spanning-tree/">
-            
-              
-                <span>最小生成树</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">2021-08-19</div>
-        <div class="title">
-          <a href="/2021/08/19/hello-world/">
-            
-              
-                <span>Hello World</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="socket in C">
-        <div class="time-m-d">2021-08-18</div>
-        <div class="title">
-          <a href="/2021/08/18/socket-in-C/">
-            
-              
-                <span>socket in C</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="test">
-        <div class="time-m-d">2021-08-18</div>
-        <div class="title">
-          <a href="/2021/08/18/test/">
-            
-              
-                <span>test</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="关于代数基本定理">
-        <div class="time-m-d">2020-11-20</div>
-        <div class="title">
-          <a href="/2020/11/20/Fundamental-Theorem-of-Algebra/">
-            
-              
-                <span>关于代数基本定理</span>
-              
-            
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
       </div>
     
   </div>
-  <nav class="post-navigation">
-    
-    <span class="page-num">1 / 1</span>
-    
-  </nav>
-</div>
+
 
         <div class="footer">
   <div class="social">
