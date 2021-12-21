@@ -159,7 +159,7 @@ MathJax = {
 
 <p>Only the target address is required.</p>
 <p>And the receiver (server) only need to specify its address using <code>bind</code> as a unique identifier on the internet so that the message sender could know where it is.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">s.bind(<span class="string">&#x27;0.0.0.0&#x27;</span>, <span class="number">2333</span>)</span><br><span class="line">bufsize = <span class="number">8192</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">	message, address = s.recvfrom(bufsize)</span><br><span class="line">	<span class="built_in">print</span>(message)</span><br><span class="line">	s.sendto(<span class="string">b&#x27;hello&#x27;</span>, address)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">s.bind(<span class="string">&#x27;0.0.0.0&#x27;</span>, <span class="number">2333</span>)</span><br><span class="line">bufsize = <span class="number">8192</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    message, address = s.recvfrom(bufsize)</span><br><span class="line">    <span class="built_in">print</span>(message)</span><br><span class="line">    s.sendto(<span class="string">b&#x27;hello&#x27;</span>, address)</span><br></pre></td></tr></table></figure>
 
 <p>The main characteristic of UDP is that every sending of message is isolated and context-free.</p>
 <p>Just <code>sendto(message, address)</code> no matter the sender is the server or the client, the boundary between the server and the client is vague and the distinguishment of server and client is unimportant.</p>
@@ -191,6 +191,7 @@ MathJax = {
 <ol>
 <li>init</li>
 <li><code>bind</code> an address</li>
+<li><code>listen</code> continuously</li>
 <li><code>accept</code> a connection</li>
 <li><code>send</code> and <code>recv</code> messages</li>
 <li><code>close</code> the connection</li>
