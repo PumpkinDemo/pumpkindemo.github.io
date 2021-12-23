@@ -150,10 +150,10 @@ MathJax = {
       </div>
       <div class="markdown-body">
         <p>First, two packages:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install virtualenv</span><br><span class="line">pip3 install virtualenvwrapper</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install virtualenv</span><br><span class="line">pip3 install virtualenvwrapper</span><br></pre></td></tr></table></figure>
 
 <p><code>virtualenv</code> makes one can create new virtual environment conveniently, like:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv new_env</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv new_env</span><br></pre></td></tr></table></figure>
 
 <p>and a new directory named <code>new_env</code> will be created under the current directory.</p>
 <p><code>virtualenvwrapper</code> is a wrapper of <code>virtualenv</code>, which allows one to manage virtual environments.</p>
@@ -166,9 +166,17 @@ MathJax = {
 <li><code>lsvirtualenv</code>: list all available virtual env</li>
 </ul>
 <p>To enjoy the wrapper, put</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export WORKON_HOME=&#x27;~/root/.virtualenvs&#x27;</span><br><span class="line">source `which virtualenvwrapper.sh`</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> WORKON_HOME=<span class="string">&#x27;~/.virtualenvs&#x27;</span></span><br><span class="line"><span class="built_in">source</span> `<span class="built_in">which</span> virtualenvwrapper.sh`</span><br></pre></td></tr></table></figure>
 
-<p>into your favorite shell init file, such as <code>.zshrc</code>, <code>.bashrc</code>, <code>.bash_profile</code></p>
+<p>into your favorite shell init file, such as <code>.zshrc</code>, <code>.bashrc</code>, and then all virtual environments created would be managed under the <code>~/.virtualenvs</code> directory.</p>
+<p>Sometimes, you should specify which python interpreter is used by</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> VIRTUALENVWRAPPER_PYTHON=<span class="string">&#x27;/usr/bin/python3&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>Because the <code>virtualenvwrapper.sh</code> will find your <code>python</code> rather than <code>python3</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Locate the global Python where virtualenvwrapper is installed.</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;VIRTUALENVWRAPPER_PYTHON:-&#125;</span>&quot;</span> = <span class="string">&quot;&quot;</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    VIRTUALENVWRAPPER_PYTHON=<span class="string">&quot;<span class="subst">$(command \which python)</span>&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>But <code>python</code> sometimes refers to <code>python2</code> or just not exists, such as that on Ubuntu.</p>
+<p>Similarly if you want to use the wrapper in python2.</p>
 
       </div>
       
